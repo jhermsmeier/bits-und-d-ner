@@ -4,21 +4,17 @@ function loadModel( name, position, scale, color, availableModels ) {
 
   modelLoader.load('models/' + name + '.json', function( geometry ) {
 
-    var material = new THREE.MeshPhongMaterial({
-      color: color,
-      shading: THREE.FlatShading
-    })
-
-    geometry = new THREE.BufferGeometry()
-      .fromGeometry( geometry )
-
-    geometry.computeBoundingSphere()
-
     var mesh = new THREE.Mesh(
-      geometry,
-      material
+      new THREE.BufferGeometry().fromGeometry( geometry ),
+      new THREE.MeshPhongMaterial({
+        color: color,
+        shading: THREE.FlatShading
+      })
     )
 
+    geometry = void 0
+
+    mesh.name = name
     mesh.material.shininess = 0
     mesh.position.x = position.x
     mesh.position.y = position.y
@@ -27,7 +23,8 @@ function loadModel( name, position, scale, color, availableModels ) {
     mesh.scale.y = scale
     mesh.scale.z = scale
 
-    mesh.name = name
+    mesh.geometry.computeBoundingSphere()
+
     availableModels.push( mesh )
 
   })
