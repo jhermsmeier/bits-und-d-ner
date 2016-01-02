@@ -94,8 +94,6 @@ function updatePhysics() {
       break
     }
 
-    createExplosion( colls[i].bj.position )
-
     if( colls[i].bi.mass < colls[i].bj.mass && colls[i].bi !== bodies.planet ) {
       physics.removeBody( colls[i].bi )
       scene.remove( colls[i].bi.mesh )
@@ -105,6 +103,8 @@ function updatePhysics() {
       physics.removeBody( colls[i].bj )
       scene.remove( colls[i].bj.mesh )
     }
+
+    createExplosion( colls[i].bj.position )
 
   }
 
