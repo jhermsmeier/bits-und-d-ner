@@ -1,7 +1,10 @@
 function createPlanet( options ) {
 
+  // var geometry = new THREE.SphereGeometry( options.radius, options.x, options.y )
+  var geometry = new THREE.IcosahedronGeometry( options.radius, 2 )
+
   var planet = new THREE.Mesh(
-    new THREE.SphereGeometry( options.radius, options.x, options.y ),
+    new THREE.BufferGeometry().fromGeometry( geometry ),
     new THREE.MeshPhongMaterial({
       color: options.color,
       shading: THREE.FlatShading
@@ -15,8 +18,11 @@ function createPlanet( options ) {
 
   if( options.atmosphere ) {
 
+    // var geometry = new THREE.SphereGeometry( options.radius * 1.2, options.x, options.y )
+    var geometry = new THREE.IcosahedronGeometry( options.radius * 1.2, 2 )
+
     var atmo = new THREE.Mesh(
-      new THREE.SphereGeometry( options.radius * 1.2, options.x, options.y ),
+      new THREE.BufferGeometry().fromGeometry( geometry ),
       new THREE.MeshPhongMaterial({
         color: new THREE.Color( '#AAEEFF' ),
         shading: THREE.FlatShading

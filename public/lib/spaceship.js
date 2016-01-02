@@ -1,6 +1,7 @@
 var SPACESHIP_START_POSITION = new THREE.Vector3( 0, 0, 40 )
 
 function putToStart( spaceship ) {
+
   spaceship.position.set(
     SPACESHIP_START_POSITION.x,
     SPACESHIP_START_POSITION.y,
@@ -8,6 +9,7 @@ function putToStart( spaceship ) {
   )
 
   if ( bodies.spaceship ) {
+
     bodies.spaceship.angularVelocity.x = 0
     bodies.spaceship.angularVelocity.y = 0
     bodies.spaceship.angularVelocity.z = 0
@@ -23,36 +25,37 @@ function putToStart( spaceship ) {
     bodies.spaceship.quaternion.x = 0
     bodies.spaceship.quaternion.y = 1
     bodies.spaceship.quaternion.z = 0
+
   }
 
-  spaceship.rotation.set(
-    0,
-    Math.PI,
-    0
-  )
+  spaceship.rotation.set( 0, Math.PI, 0 )
+
 }
 
 function createSpaceship( addToScene ) {
+
   var loader = new THREE.JSONLoader()
 
-  loader.load('models/spaceship.json', function (geometry) {
-    var material = new THREE.MeshPhongMaterial({
-      color: '#ED8989',
-      shading: THREE.FlatShading
-    })
+  loader.load( 'models/spaceship.json', function( geometry ) {
 
     var spaceship = new THREE.Mesh(
-      geometry,
-      material
+      new THREE.BufferGeometry().fromGeometry( geometry ),
+      new THREE.MeshPhongMaterial({
+        color: '#ED8989',
+        shading: THREE.FlatShading
+      })
     )
 
     spaceship.name = 'spaceship'
     spaceship.rotation.y = Math.PI
+    spaceship.geometry.computeBoundingSphere()
 
     putToStart( spaceship )
     addCamera( spaceship )
     addToScene( spaceship )
+
   })
+
 }
 
 function addCamera( mesh ) {

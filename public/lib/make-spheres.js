@@ -1,11 +1,10 @@
 function createSphere( radius, x, y, z, material ) {
 
   var material = material || createSphere.material
+  var geometry = new THREE.BufferGeometry()
+    .fromGeometry( new THREE.IcosahedronGeometry( radius, 1 ) )
 
-  var sphere = new THREE.Mesh(
-    new THREE.SphereGeometry( radius, x, y, z ),
-    material
-  )
+  var sphere = new THREE.Mesh( geometry, material )
 
   sphere.receiveShadow = true
   sphere.castShadow = true
